@@ -1,2 +1,0 @@
-# Majlis_crawler
-beginner :)

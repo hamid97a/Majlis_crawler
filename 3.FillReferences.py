@@ -1,10 +1,8 @@
-from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 from requests_html import HTML
 from datetime import datetime
 import requests
 import json
-import time
 import re
 import sqlite3
 #---------------------InitializeValue--------------------------

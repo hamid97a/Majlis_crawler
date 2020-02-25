@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 from requests_html import HTML
 from datetime import datetime
@@ -30,9 +29,11 @@ def changeDate(mydate):
 #**************      date format example yyyy-mm-dd         ********************
 #if you need all of rules input into dates empty string like ** fromDate = ''
 
-fromDate = ''
-toDate = ''
+fromDate = '1393-01-01'
+toDate = '1398-12-02'
 
+#*************************************
+#*************************************
 firstPage = session.get(url+"fa/law/search?page="+str(page)+"&from_app_date="+changeDate(fromDate)+"&to_app_date="+changeDate(toDate)+"&ot=d#aaa")
 pageMax = int((firstPage.html.find('div[id="myTabContent"]>ul>li',first=True).full_text.strip().split(":"))[1])
 if pageMax % 10 != 0:
@@ -40,7 +41,7 @@ if pageMax % 10 != 0:
 else:
     pageMax = pageMax//10
 
-conn = sqlite3.connect('Perfect.db')
+conn = sqlite3.connect('Update.db')
 c= conn.cursor()
 root = []
 

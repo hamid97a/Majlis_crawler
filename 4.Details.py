@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 from requests_html import HTML
 import requests
@@ -8,7 +7,7 @@ from datetime import datetime
 import re
 import sqlite3
 #---------------------InitializeValue--------------------------
-#132299 in matnesh ajib gharibe
+
 
 detailsList = []
 
@@ -34,7 +33,7 @@ def fillDetails(spans):
             pass
     return v
 
-conn = sqlite3.connect('Pazhoohesh.db')
+conn = sqlite3.connect('Update.db')
 c= conn.cursor()
 #select approved table for comparing approved names and save id in details tables
 c.execute("SELECT * FROM approved")
@@ -45,14 +44,13 @@ rows = c.fetchall()
 i = 1
 url = 'http://rc.majlis.ir/'
 session = HTMLSession()
-#
 try:
     for row in rows:
         detailObj = {'Id':'','text':'','approvId':'','announcementNumber':'','article':''}
         #crawling text of rules
-        ghanoon = session.get(url+"fa/law/print_version/"+str(row[0]),verify=False)
+        ghanoon = session.get(url+"fa/law/print_version/"+str(row[0]))
         matn = ghanoon.html.find('div[id="news-body"]',first=True).full_text.strip()
-        details = session.get(url+"fa/law/show/"+str(row))
+        details = session.get(url+"fa/law/show/"+str(row[0]))
         spansList = details.html.find('div[class="sidebar-content"]',first=True)
         spans = spansList.find('span')
         s = fillDetails(spans)

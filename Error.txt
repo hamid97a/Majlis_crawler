@@ -12,9 +12,5 @@
  # Details.py # We have except
  # Pazhoohesh.py # In page : 583 and id : 816772 we have except  2020-02-06 19:25:14.350311
  # Pazhoohesh.py # In page : 112 and id : 1079894 we have except  2020-02-06 19:58:22.042574
- # Details.py # We have except
- # Details.py # We have except
- # Details.py # We have except
- # Details.py # We have except
- # Details.py # We have except
+ # Pazhoohesh.py # In page : 4261 and id : 106787 we have except  2020-02-14 17:38:11.660488
  # Details.py # We have except
