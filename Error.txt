@@ -14,3 +14,9 @@
  # Pazhoohesh.py # In page : 112 and id : 1079894 we have except  2020-02-06 19:58:22.042574
  # Pazhoohesh.py # In page : 4261 and id : 106787 we have except  2020-02-14 17:38:11.660488
  # Details.py # We have except
+ # Pazhoohesh.py # In page : 1 and id : 0 we have except  2020-02-25 21:31:37.526503
+ # Pazhoohesh.py # In page : 1 and id : 0 we have except  2020-02-25 21:31:55.442257
+ # Pazhoohesh.py # In page : 1 and id : 0 we have except  2020-02-25 21:34:31.370283
+ # Pazhoohesh.py # In page : 1 and id : 0 we have except  2020-02-25 21:36:18.627256
+ # FillReferences.py # We have except to crawl References 2020-02-25 23:30:34.184273
+ # FillReferences.py # We have except to crawl References 2020-02-25 23:30:50.627444

@@ -1,6 +1,7 @@
 from requests_html import HTMLSession
 from requests_html import HTML
 from datetime import datetime
+from persiantools.jdatetime import JalaliDate
 import requests
 import json
 import time
@@ -45,13 +46,41 @@ conn = sqlite3.connect('Update.db')
 c= conn.cursor()
 root = []
 
+#********************************************Parsing
+#*******************************************
 def dateSplit(string):
     if string != '':
         s = string.split('/')
-        tarikh = s[0]+'-'+s[1]+'-'+s[2]
+        if s[1].startswith('0'):
+            s[1]=s[1][1:]
+        if s[2].startswith('0'):
+            s[2]=s[2][1:]
+        tarikh =str(JalaliDate(int(s[0]), int(s[1]), int(s[2])).to_gregorian())
         return tarikh
     else:
         return string
+
+def _multiple_replace(mapping, text):
+    pattern = "|".join(map(re.escape, mapping.keys()))
+    return re.sub(pattern, lambda m: mapping[m.group()], str(text))
+
+def convert_fa_numbers(input_str):
+    mapping = {
+        '۰': '0',
+        '۱': '1',
+        '۲': '2',
+        '۳': '3',
+        '۴': '4',
+        '۵': '5',
+        '۶': '6',
+        '۷': '7',
+        '۸': '8',
+        '۹': '9',
+        '.': '.',
+    }
+    return _multiple_replace(mapping, input_str)
+#********************************************
+#****************************************
 
 try:
     while page<=pageMax:
@@ -66,7 +95,7 @@ try:
             tdList = list(each.find('td'))
             rootobj = {'id':'' , 'title':'' , 'approvalDate':'' , 'announcementDate':'' }
             rootobj['id'] = int(tdList[0].full_text.strip())
-            rootobj['title'] = tdList[1].full_text.strip()
+            rootobj['title'] = convert_fa_numbers(tdList[1].full_text.strip())
             rootobj['approvalDate'] = dateSplit(tdList[2].full_text.strip())
             rootobj['announcementDate'] = dateSplit(tdList[3].full_text.strip())
             root.append(tuple(rootobj.values()))

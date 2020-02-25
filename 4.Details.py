@@ -16,9 +16,33 @@ def references(mosavab):
         if mosavab == each[1].strip():
             return(each[0])
 
+#********************************************Parsing
+#*******************************************
+def _multiple_replace(mapping, text):
+    pattern = "|".join(map(re.escape, mapping.keys()))
+    return re.sub(pattern, lambda m: mapping[m.group()], str(text))
+
+def convert_fa_numbers(input_str):
+    mapping = {
+        '۰': '0',
+        '۱': '1',
+        '۲': '2',
+        '۳': '3',
+        '۴': '4',
+        '۵': '5',
+        '۶': '6',
+        '۷': '7',
+        '۸': '8',
+        '۹': '9',
+        '.': '.',
+    }
+    return _multiple_replace(mapping, input_str)
+
 def detailParse(det):
     return (det.full_text.strip().split(':'))[1].strip()
 
+#********************************************
+#****************************************
 def fillDetails(spans):
     v = {'approvId':'','announcementNumber':'','article':''}
     for span in spans:
@@ -55,10 +79,10 @@ try:
         spans = spansList.find('span')
         s = fillDetails(spans)
         detailObj['Id'] = row[0]
-        detailObj['text'] = matn
+        detailObj['text'] = convert_fa_numbers(matn)
         detailObj['approvId'] = s['approvId']
-        detailObj['announcementNumber'] = s['announcementNumber']
-        detailObj['article'] = s['article']
+        detailObj['announcementNumber'] = convert_fa_numbers(s['announcementNumber'])
+        detailObj['article'] = convert_fa_numbers(s['article'])
         detailsList.append(tuple(detailObj.values()))
         if i % 20 == 0:
             c.executemany("INSERT INTO Details VALUES(?,?,?,?,?)",detailsList)
